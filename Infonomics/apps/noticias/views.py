@@ -44,7 +44,7 @@ class CrearNoticia(CreateView , CustomTestMixin):
 class ActualizarNoticia(UpdateView , CustomTestMixin):
     model = Noticia
     fields = ['titulo','autor','descripcion','categoria','imagen']
-    template_name = 'noticias/actualizar_libro.html'
+    template_name = 'noticias/actualizar_noticia.html'
     success_url = reverse_lazy('index')
 
 class EliminarNoticia(DeleteView, CustomTestMixin):
@@ -52,7 +52,7 @@ class EliminarNoticia(DeleteView, CustomTestMixin):
     template_name = 'genericos/confirma_eliminar.html'
     success_url = reverse_lazy('index')
 
-class ListarLibros(ListView):
+class ListarNoticias(ListView):
     model = Noticia
     template_name = 'noticias/listar_noticias.html'
     context_object_name = 'noticias'
@@ -82,7 +82,9 @@ def listar_noticia_por_categoria(request, categoria):
     }
     return render(request, template_name=template_name, context=context)
 
-def detalle_libro(request,id):
+#para vuando se genere la app opiniones
+
+""""def nota_noticia(request,id):
     noticia = Noticia.objects.get(id = id)
     
     opiniones = Opinion.objects.filter(noticia = id)
@@ -104,7 +106,7 @@ def detalle_libro(request,id):
     }
     template_name = "noticias/noticia_detalle.html"
 
-    return render(request, template_name=template_name,context=context)
+    return render(request, template_name=template_name,context=context)"""
     
 def ordenar_por(request):
     orden = request.GET.get('orden',' ')
