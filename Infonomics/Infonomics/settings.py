@@ -5,12 +5,14 @@ from django.urls import reverse_lazy # type: ignore
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+#-----------------------------------------------------------
+#para loguearse
+from django.urls import reverse_lazy # type: ignore
 
+LOGIN_URL = reverse_lazy('apps.blog_auth:iniciar_sesion')
+LOGIN_REDIRECT_URL = reverse_lazy('index')
+LOGOUT_REDIRECT_URL = reverse_lazy('index')
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
 
 load_dotenv()
 SECRET_KEY = os.getenv('SECRET_KEY')
@@ -30,6 +32,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
+    #'apps.noticias',
 ]
 
 MIDDLEWARE = [
