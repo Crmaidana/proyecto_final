@@ -15,8 +15,8 @@
     <button class="btn btn-outline-secondary dropdown-toggle " type="button" id="dropdownMenuButton1"
         data-bs-toggle="dropdown" aria-expanded="false">Administrar</button>
     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-        <li><a class="dropdown-item" href="{% url 'apps.libros:actualizar_libro' libro.pk %}">Modificar libro</a></li>
-        <li><a class="dropdown-item" href="{% url 'apps.libros:eliminar_libro' libro.pk %}">Eliminar libro</a></li>
+        <li><a class="dropdown-item" href="{% url 'apps.noticias:actualizar_noticia' noticia.pk %}">Modificar noticia</a></li>
+        <li><a class="dropdown-item" href="{% url 'apps.noticias:eliminar_noticia' noticia.pk %}">Eliminar noticia</a></li>
     </ul>
     {% endif %}
     <section data-bs-version="5.1" class="image1 cid-tf6nPGwDQN" id="image1-q">
@@ -24,29 +24,26 @@
             <div class="row align-items-center">
                 <div class="col-12 col-lg-6">
                     <div class="image-wrapper">
-                        {% if libro.imagen %}<img src="{{ libro.imagen.url }}" class="d-block w-100">
+                        {% if noticia.imagen %}<img src="{{ noticia.imagen.url }}" class="d-block w-100">
                         {% else %}<img src="{% static 'img/img_libros/el_principito.jpeg' %}">{% endif %}
-                        <p class="mbr-description mbr-fonts-style pt-2 align-center display-4">{{libro.fecha_agregado}}</p>
+                        <p class="mbr-description mbr-fonts-style pt-2 align-center display-4">{{noticia.fecha_agregado}}</p>
                     </div>
                 </div>
                 <div class="col-12 col-lg">
                     <div class="text-wrapper">
-                        <h2 class="mbr-section-title mbr-fonts-style mb-3 display-5"><strong>{{libro.titulo}}</strong>
+                        <h2 class="mbr-section-title mbr-fonts-style mb-3 display-5"><strong>{{noticia.titulo}}</strong>
                         </h2>
-                        <h4 class="mbr-section-title mbr-fonts-style mb-3 "><i>{{libro.autor}}</i></h4>
-                        <p class="mbr-text mbr-fonts-style display-7">{{libro.descripcion}}</p>
+                        <h4 class="mbr-section-title mbr-fonts-style mb-3 "><i>{{noticia.autor}}</i></h4>
+                        <p class="mbr-text mbr-fonts-style display-7">{{noticia.nota}}</p>
                     </div>
                 </div>
 
             </div>
         </div>
-        <div class="mb-3 display-7" style="text-align: center">
-            <p>Opiniones: {{opiniones.count}}</p>
-            {% include 'opiniones/listar_opiniones.html' %}
-        </div>
-        <div class="mb-3 display-7" style="text-align: center">
-            {% include 'opiniones/agregar_opinion.html' %}
-        </div>
+        
     </section>
 
     {%endblock %}
+
+
+  

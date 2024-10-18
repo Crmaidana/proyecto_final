@@ -30,7 +30,7 @@ class ActualizarCategoria(UpdateView, CustomTestMixin):
 
 class EliminarCategoria(DeleteView, CustomTestMixin):
     model = Categoria
-    template_name = 'genericos/confirma_eliminar.html'
+    template_name = 'generic/confirma_eliminar.html'
     success_url = reverse_lazy('index')
 
 # ------- Noticias -----------------
@@ -43,13 +43,13 @@ class CrearNoticia(CreateView , CustomTestMixin):
 
 class ActualizarNoticia(UpdateView , CustomTestMixin):
     model = Noticia
-    fields = ['titulo','autor','descripcion','categoria','imagen']
+    fields = ['titulo','autor','nota','categoria','imagen']
     template_name = 'noticias/actualizar_noticia.html'
     success_url = reverse_lazy('index')
 
 class EliminarNoticia(DeleteView, CustomTestMixin):
     model = Noticia
-    template_name = 'genericos/confirma_eliminar.html'
+    template_name = 'generic/confirma_eliminar.html'
     success_url = reverse_lazy('index')
 
 class ListarNoticias(ListView):
@@ -79,7 +79,7 @@ def listar_noticia_por_categoria(request, categoria):
     template_name = 'noticias/listar_noticias.html'
     context = {
         'noticias' : noticias
-    }
+        }
     return render(request, template_name=template_name, context=context)
 
 #para vuando se genere la app opiniones
@@ -108,13 +108,24 @@ def listar_noticia_por_categoria(request, categoria):
 
     return render(request, template_name=template_name,context=context)"""
     
+    
+def nota_noticia(request,id):
+    noticia = Noticia.objects.get(id = id)
+
+    context= {
+        "noticia": noticia
+    }
+    template_name = "noticias/noticia_detalle.html"
+
+    return render(request, template_name=template_name,context=context)    
+    
 def ordenar_por(request):
     orden = request.GET.get('orden',' ')
 
     if orden == 'fecha':
         noticias = Noticia.objects.order_by('fecha_agregado')
     elif orden == 'titulo':
-        noticias = Noticia.objects.order_by('titulo')
+        noticias = Noticia.objects.order_by('categoria')
     else : 
         noticias = Noticia.objects.all()
     

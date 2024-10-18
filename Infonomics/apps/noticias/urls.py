@@ -3,7 +3,7 @@ from django.urls import path # type: ignore
 from django.conf.urls.static import static # type: ignore
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns # type: ignore
 
-from .views import CrearCategoria, ActualizarCategoria, EliminarCategoria, CrearNoticia, ActualizarNoticia, ListarNoticias, EliminarNoticia,listar_noticia_por_categoria, ordenar_por
+from .views import CrearCategoria, ActualizarCategoria, EliminarCategoria, CrearNoticia, ActualizarNoticia, ListarNoticias, EliminarNoticia,nota_noticia, listar_noticia_por_categoria, ordenar_por
 
 app_name = 'apps.noticias'
 
@@ -15,6 +15,7 @@ urlpatterns = [
     path("actualizar_noticia/<int:pk>", ActualizarNoticia.as_view(), name = 'actualizar_noticia'),
     path("eliminar_noticia/<int:pk>", EliminarNoticia.as_view(), name= 'eliminar_noticia'),
     path("listar_noticias/", ListarNoticias.as_view(), name='listar_noticias'),
+    path("noticia/<int:id>", nota_noticia, name = 'noticia'),
     path("listar_por_categoria/<str:categoria>", listar_noticia_por_categoria, name='listar_por_categoria' ),
     path("ordenar_por/", ordenar_por, name = 'ordenar_por')
 ]

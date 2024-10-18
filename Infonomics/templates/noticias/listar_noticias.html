@@ -1,42 +1,38 @@
 {% extends 'base.html' %}
 {% load static %}
-
 {% block titulo %}
-<title>Libros</title>
+<title>Noticias</title>
 {% endblock %}
-
 {% block navegacion %}
 {% include 'navegacion.html' %}
 {% endblock %}
-
 {% block contenido %}
-
-<form action="{% url 'apps.libros:listar_libros' %}" class="d-flex" role="search" method="get">
-    <input class="form-control me-2" style="height: 25%; width: 95%; margin-top: 2%;" type="search"
-        placeholder="Buscar libro" aria-label="Search" name="buscador">
+<form action="{% url 'apps.noticias:listar_noticias' %}" class="d-flex" role="search" method="get">
+    <input class="form-control me-2" style="height: 25%; width: 95%; margin-top: 2%;" type="search" placeholder="Buscar noticia" aria-label="Search" name="buscador">
     <button class="btn-primary" style="height: 25%; margin-top: 2.5%;" type="submit">Buscar</button>
 </form>
-<form method="GET" action="{% url 'apps.libros:ordenar_por' %}">
+<form method="GET" action="{% url 'apps.noticias:ordenar_por' %}">
     <button class="btn-primary" name="orden" type="submit" value="fecha">Ordenar por fecha</button>
-    <button class="btn-primary" name="orden" type="submit" value="titulo">Ordenar por título</button>
+    <button class="btn-primary" name="orden" type="submit" value="categoria">Ordenar por categoría</button>
 </form>
-
-{% if libros %}
-<h1>Libros</h1>
-{% for p in libros %}
+{% if noticias %}
+<h1>Noticias</h1>
+{% for p in noticias %}
 <div class="card" style="width: 100%;">
     <img src="{{ p.imagen.url }}" class="card-img-top" style="display: block; width: 25%;" alt="...">
     <div class="card-body">
         <h5 class="card-title">{{ p.titulo }}</h5>
-        <p class="card-text">{{ p.descripcion }}</p>
-        <a href="{% url 'apps.libros:libro' p.id %}" class="btn btn-primary">Leer más</a>
+        <p class="card-text">{{ p.nota }}</p>
+        <a href="{% url 'apps.noticias:noticia' p.id %}" class="btn btn-primary">Leer más</a>
     </div>
     <ul class="list-group list-group-flush">
-        <li class="list-group-item">Categoria: {{ p.categoria }}</li>
+        <li class="list-group-item">Categoría: {{ p.categoria }}</li>
         <li class="list-group-item">Autor: {{ p.autor }}</li>
         <li class="list-group-item">Fecha de agregado: {{ p.fecha_agregado }}</li>
     </ul>
-
 </div>
 {% endfor %}
+{% else %}
+<p>No se encontraron noticias.</p>
 {% endif %}
+{% endblock %}
