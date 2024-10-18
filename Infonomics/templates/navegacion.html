@@ -1,0 +1,63 @@
+{% load static %}
+<nav class="navbar" data-bs-theme="dark">
+    <div class="container-fluid">
+        <a href="{% url 'index' %}">
+            <img src="{% static 'img/logo.png' %}" alt="Logo" width="100" height="100">
+        </a>
+        <ul class="nav nav-underline">
+            {% if user.is_authenticated %}
+                <div class="list-group-item d-flex gap-3 py-3" aria-current="true">
+                    <img src="{{ user.imagen.url }}" alt="Perfil" width="40" height="40" class="rounded-circle flex-shrink-0">
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                            {{ user.username }}
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <li><a class="dropdown-item" href="{% url 'apps.blog_auth:editar_perfil' user.pk %}">Modificar Perfil</a></li>
+                            <li><a class="dropdown-item" href="{% url 'apps.blog_auth:cerrar_sesion' %}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Cerrar sesión</a></li>
+                        </ul>
+                        <form id="logout-form" action="{% url 'apps.blog_auth:cerrar_sesion' %}" method="POST" style="display: none;">
+                            {% csrf_token %}
+                        </form>
+                    </div>
+                </div>
+            {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'apps.blog_auth:registrarse' %}">Registrarse</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'apps.blog_auth:iniciar_sesion' %}">Iniciar Sesión</a>
+                </li>
+            {% endif %}
+        </ul>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                        Noticias
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{% url 'apps.noticias:listar_noticias' %}">Listar todas las Noticias</a></li>
+                        {% for i in categorias %}
+                        <li><a class="dropdown-item" href="{% url 'apps.noticias:listar_por_categoria' i.nombre %}">{{ i.nombre }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% if user.is_staff %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Colaborador
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{% url 'apps.noticias:agregar_categoria' %}">Agregar categoría</a></li>
+                            <li><a class="dropdown-item" href="{% url 'apps.noticias:agregar_noticia' %}">Agregar noticias</a></li>
+                        </ul>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>

@@ -9,7 +9,9 @@ from django.urls import include,path # type: ignore
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', HomeView.as_view(), name= 'index'),
-    path("users/", include('apps.blog_auth.urls'))
+    path("users/", include('apps.blog_auth.urls')),
+    path("noticias/", include('apps.noticias.urls')),
+     path("contarios/", include('apps.comentarios.urls')),
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
 urlpatterns += staticfiles_urlpatterns()
 urlpatterns += static(settings.STATIC_URL, document_root = settings.STATIC_ROOT)

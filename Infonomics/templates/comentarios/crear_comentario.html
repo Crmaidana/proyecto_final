@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block contenido %}
+<div class="main-container">
+    <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="overlay">
+            <h2>comentar</h2>
+            <p>Ingrese su comentario sobre esta noticia</p>
+            <div>
+                {{ form.as_p }}
+                <input type="submit" value="Comentar">
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}
