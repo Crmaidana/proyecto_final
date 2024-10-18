@@ -1,48 +1,17 @@
-<div class="row justify-content-md-center "></div>
-<div class="row justify-content-md-center">
-    <div class="col-md-6">
-        <div class="list-group-item gap-3 py-3" aria-current="true">
-            <form method="POST" enctype="multipart/form-data">{%csrf_token%}
-            <form method="POST" enctype="multipart/form-data">{% csrf_token %}
-                <div>
-                    {{form.as_p}}
-                    {{ form.as_p }}
-                </div>
-                {% if user.is_authenticated %}
-                <input class="btn btn-outline-secondary" type="submit" value="comentar" />
-                    <input class="btn btn-outline-secondary" type="submit" value="comentar" />
-                {% else %}
-                <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal"
-                    data-bs-target="#exampleModal">
-                    comentar
-                </button>
-                <!-- Modal -->
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                    aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Error</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                Usted tiene que iniciar sesión o registrarse para poder opinar
-                            </div>
-                            <div class="modal-footer">
-                                <a class="btn btn-outline-secondary" href="{% url 'apps.blog_auth:iniciar_sesion' %}"
-                                    target="_blank">Iniciar sesión</a>
-                                <a class="btn btn-outline-secondary" href="{% url 'apps.blog_auth:registrarse' %}"
-                                    target="_blank">Registrarse</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                    <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                        Opinar
-                    </button>
-                {% endif %}
-            </form>
+{% extends 'base.html' %}
+{% load static %}
+{% block contenido %}
+<div class="main-container">
+    <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="overlay">
+            <h2>comentar</h2>
+            <p>Ingrese su comentario sobre esta noticia</p>
+            <div>
+                {{ form.as_p }}
+                <input type="submit" value="Comentar">
+            </div>
         </div>
-    </div>
+    </form>
 </div>
+{% endblock %}

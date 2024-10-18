@@ -2,8 +2,8 @@ from django import forms
 
 from .models import Comentarios
 
-class ComentariosForm(forms.ModelForm):
+class ComentariosForm(forms.modelsforms):
 
     class Meta:
         model = Comentarios
-        fields = ['texto']
+        field = ['texto']
