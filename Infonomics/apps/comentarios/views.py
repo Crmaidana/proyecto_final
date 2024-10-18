@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-from apps.comentarios.forms import ComentariosForm
+from Infonomics.apps.comentarios.forms import ComentariosForm
 
 # Create your views here.
 def Comentar(request):

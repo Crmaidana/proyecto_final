@@ -4,5 +4,5 @@ from .views import Comentar
 app_name = 'apps.comentarios'
 
 urlpatterns= [
-    path('Comentar/', Comentar, name= 'comentar' )
+    path('comentar/', Comentar, name= 'comentar' )
 ]
