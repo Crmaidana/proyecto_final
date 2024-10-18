@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     
     'apps.noticias',
+    'apps.comentarios',
 ]
 
 MIDDLEWARE = [
