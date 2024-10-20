@@ -1,9 +1,9 @@
-from django import forms
+from django import forms # type: ignore
 
 from .models import Comentarios
 
-class ComentariosForm(forms.modelsforms):
+class ComentariosForm(forms.ModelForm):
 
     class Meta:
         model = Comentarios
-        field = ['texto']
+        fields = ['texto']

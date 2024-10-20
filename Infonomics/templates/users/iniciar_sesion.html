@@ -1,23 +1,33 @@
 {% extends 'base.html' %}
 {% load static %}
+
 {% block titulo %}
 <title>Iniciar Sesión</title>
 {% endblock %}
+
 {% block navegacion %}
 {% include 'navegacion.html' %}
 {% endblock %}
+
 {% block contenido %}
-<section style="margin-top: 5%;" data-bs-version="5.1" class="form-section">
+<section data-bs-version="5.1" class="form4 cid-tf6M1H8RDD mbr-fullscreen" id="form4-12">
     <div class="container">
         <div class="row content-wrapper justify-content-center align-items-center">
             <!-- Formulario -->
-            <div class="col-lg-5 col-md-8 mbr-form">
-                <div class="form-card">
-                    <h1 class="form-title text-center mb-4"><strong>Iniciar sesión</strong></h1>
-                    <p class="form-description text-center mb-4">Complete los campos para iniciar sesión</p>
+            <div class="col-lg-5 col-md-8 mbr-form" data-form-type="formoid">
+                <div class="dragArea row">
+                    <div class="col-lg-12">
+                        <h1 class="mbr-section-title mb-4 display-4 text-center text-white"><strong>Iniciar sesión</strong></h1>
+                    </div>
+                    <div class="col-lg-12 mb-4 text-center">
+                        <p class="mbr-text mbr-fonts-style display-7 text-light">Complete los campos para iniciar sesión</p>
+                    </div>
+
                     <form method="post">{% csrf_token %}
                         <!-- Campos del formulario -->
-                        {{ form.as_p }}
+                        <div class="form-group mb-3">
+                            {{ form.as_p }}
+                        </div>
                         <button type="submit" class="btn btn-primary btn-lg w-100">Iniciar Sesión</button>
                     </form>
                 </div>
@@ -25,7 +35,7 @@
             <!-- Imagen al lado del formulario -->
             <div class="col-lg-5 d-none d-lg-block">
                 <div class="image-wrapper">
-                    <img class="img-fluid" src="{% static 'img/logo.png' %}" alt="Imagen de registro de usuario" />
+                    <img class="img-fluid rounded-circle" src="{% static 'img/default_avatar.png' %}" alt="Imagen de registro de usuario">
                 </div>
             </div>
         </div>
@@ -33,41 +43,54 @@
 </section>
 
 <style>
-    .form-section {
-        background-color: #f7f9fc; /* Fondo suave */
-        padding: 50px 0;
+    section {
+        background-color: #1c1c1c; /* Fondo oscuro */
+        border-radius: 10px; /* Bordes redondeados */
+        padding: 20px; /* Espaciado interno */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para profundidad */
+        margin-bottom: 0; /* Elimina el margen inferior */
     }
 
-    .form-card {
-        background-color: white; /* Fondo del formulario */
-        border-radius: 8px; /* Esquinas redondeadas */
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Sombra sutil */
-        padding: 40px;
+    .mbr-section-title {
+        color: #fff; /* Color del título */
     }
 
-    .form-title {
-        font-size: 2.5rem; /* Tamaño del título */
-        color: #333; /* Color del texto */
-    }
-
-    .form-description {
-        font-size: 1.1rem; /* Tamaño de la descripción */
-        color: #666; /* Color del texto */
+    .mbr-text {
+        color: #ddd; /* Color del texto */
     }
 
     .btn-primary {
-        background-color: #007bff; /* Color de botón */
-        border-color: #007bff;
-        transition: background-color 0.3s; /* Transición suave */
+        background-color: #5c636b; /* Color de botón primario */
+        border: none; /* Sin borde */
     }
 
-    .btn-primary:hover {
-        background-color: #0056b3; /* Color en hover */
-        border-color: #0056b3;
+    .image-wrapper {
+        display: flex;
+        justify-content: center; /* Centra la imagen horizontalmente */
+        align-items: center; /* Centra la imagen verticalmente */
+        height: 100%; /* Asegura que la imagen ocupe todo el espacio disponible */
     }
 
-    .image-wrapper img {
-        border-radius: 8px; /* Esquinas redondeadas para la imagen */
+    .img-fluid {
+        border-radius: 50%; /* Redondea la imagen */
+        max-width: 100%; /* Asegura que la imagen no desborde */
+        height: auto; /* Mantiene la relación de aspecto */
+    }
+    /* Nuevos estilos para los campos de entrada */
+    input, textarea, select {
+        background-color: #333; /* Fondo de los campos */
+        color: #fff; /* Color del texto en los campos */
+        border: 1px solid #555; /* Borde de los campos */
+        border-radius: 5px; /* Bordes redondeados en los campos */
+    }
+
+    input::placeholder, textarea::placeholder {
+        color: #bbb; /* Color de los textos de placeholder */
+    }
+
+    label {
+        color: #fff; /* Color de las etiquetas */
     }
 </style>
+
 {% endblock %}

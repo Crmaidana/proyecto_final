@@ -5,10 +5,11 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView # type:
 from django.views.generic.list import ListView # type: ignore
 from django.contrib.auth.mixins import LoginRequiredMixin   # type: ignore
 
-from mixins.custom_test_mixin import CustomTestMixin # type: ignore
-#from apps.opiniones.forms import OpinionForm
-#from apps.opiniones.models import Opinion
+from apps.comentarios.forms import ComentariosForm
+from apps.comentarios.models import Comentarios
 
+from mixins.custom_test_mixin import CustomTestMixin # type: ignore
+from django.core.paginator import Paginator # type: ignore
 from .models import Categoria, Noticia # type: ignore
 
 
@@ -56,6 +57,7 @@ class ListarNoticias(ListView):
     model = Noticia
     template_name = 'noticias/listar_noticias.html'
     context_object_name = 'noticias'
+    paginate_by         = 3
 
     def get_context_data(self) :
         context=super().get_context_data()
@@ -76,61 +78,68 @@ class ListarNoticias(ListView):
 def listar_noticia_por_categoria(request, categoria):
     categoria_db = Categoria.objects.filter(nombre = categoria)
     noticias = Noticia.objects.filter(categoria = categoria_db[0].id) 
+        # Paginación
+    paginator = Paginator(noticias, 3)  # Muestra 3 noticias por página
+    page_number = request.GET.get('page')  # Obtiene el número de página de la solicitud
+    noticias_paginados = paginator.get_page(page_number)  # Obtiene las noticias para la página actual
+
     template_name = 'noticias/listar_noticias.html'
     context = {
-        'noticias' : noticias
+        'noticias' : noticias_paginados,
+        'page_obj': noticias_paginados,  # Usa las noticias paginados en el contexto(para el paginador)
+        'paginator': paginator,  # También pasa el paginator para obtener información de paginación
+        'is_paginated': paginator.num_pages > 1,# Determina si la paginación es necesaria
         }
     return render(request, template_name=template_name, context=context)
 
 #para vuando se genere la app opiniones
 
-""""def nota_noticia(request,id):
+def nota_noticia(request,id):
     noticia = Noticia.objects.get(id = id)
     
-    opiniones = Opinion.objects.filter(noticia = id)
-    form = OpinionForm(request.POST)
+    comentarios = Comentarios.objects.filter(noticia = id)
+    form = ComentariosForm(request.POST)
     if form.is_valid():
         if request.user.is_authenticated:
             aux = form.save(commit=False)
             aux.noticia = noticia
             aux.usuario = request.user
             aux.save()
-            form = OpinionForm()
+            form = ComentariosForm()
         else:
             return redirect('apps.blog_auth:iniciar_sesion')
 
     context= {
         "noticia": noticia,
         "form" : form, 
-        "opiniones" : opiniones
+        "comentarios" : comentarios
     }
     template_name = "noticias/noticia_detalle.html"
 
-    return render(request, template_name=template_name,context=context)"""
+    return render(request, template_name=template_name,context=context)
     
-    
-def nota_noticia(request,id):
-    noticia = Noticia.objects.get(id = id)
-
-    context= {
-        "noticia": noticia
-    }
-    template_name = "noticias/noticia_detalle.html"
-
-    return render(request, template_name=template_name,context=context)    
-    
+        
 def ordenar_por(request):
     orden = request.GET.get('orden',' ')
+    noticias = None
 
     if orden == 'fecha':
         noticias = Noticia.objects.order_by('fecha_agregado')
     elif orden == 'titulo':
-        noticias = Noticia.objects.order_by('categoria')
+        noticias = Noticia.objects.order_by('titulo')
     else : 
         noticias = Noticia.objects.all()
-    
+        
+       # Paginación
+    paginator = Paginator(noticias, 3)  # Muestra 3 noticias por página
+    page_number = request.GET.get('page')  # Obtiene el número de página de la solicitud
+    noticias_paginados = paginator.get_page(page_number)  # Obtiene las noticias para la página actual
+        
     template_name = 'noticias/listar_noticias.html'
     context = {
-        'noticias' : noticias
+        'noticias': noticias_paginados,
+        'page_obj': noticias_paginados,  # Usa las noticias paginados en el contexto(para el paginador)
+        'paginator': paginator,  # También pasa el paginator para obtener información de paginación
+        'is_paginated': paginator.num_pages > 1,# Determina si la paginación es necesaria
     }
     return render(request, template_name, context)    
