@@ -5,13 +5,11 @@
         <a href="{% url 'index' %}">
             <img src="{% static 'img/logo.png' %}" alt="Logo" width="100" height="100">
         </a>
-        
         <!-- Botón para el menú en pantallas pequeñas -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-
         <!-- Contenido del menú -->
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav me-auto">
@@ -20,14 +18,13 @@
                     <a class="nav-link dropdown-toggle" href="#" id="librosDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Noticias
                     </a>
-                    <ul class="dropdown-menu" aria-labelledby="noticiasDropdown">
+                    <ul class="dropdown-menu" aria-labelledby="librosDropdown">
                         <li><a class="dropdown-item" href="{% url 'apps.noticias:listar_noticias' %}">Listar todos las noticias</a></li>
                         {% for i in categorias %}
                         <li><a class="dropdown-item" href="{% url 'apps.noticias:listar_por_categoria' i.nombre %}">{{ i.nombre }}</a></li>
                         {% endfor %}
                     </ul>
                 </li>
-
                 <!-- Opciones para colaboradores (solo staff) -->
                 {% if user.is_staff %}
                 <li class="nav-item dropdown">
@@ -41,7 +38,6 @@
                 </li>
                 {% endif %}
             </ul>
-
             <!-- Perfil de usuario y autenticación -->
             <ul class="navbar-nav ms-auto">
                 {% if user.is_authenticated %}
@@ -59,6 +55,10 @@
                             </form>
                         </li>
                     </ul>
+                </li>
+                <!-- Botón para contacto para usuarios autenticados -->
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'apps.contacto:contacto' %}">Contacto</a>
                 </li>
                 {% else %}
                 <li class="nav-item">
