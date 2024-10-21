@@ -10,13 +10,58 @@
 {% endblock %}
 
 {% block contenido %}
-<div class="card text-bg-dark">
-    <img class="card-img" src="{% static 'img/banner.jpg' %}" alt="">
-    <div class="card-img-overlay">
-        <!-- Puedes añadir contenido aquí si lo deseas -->
-    </div>
-</div>
 
+<!-- Fondo oscuro para toda la página -->
+<style>
+    body {
+        background-color: #121212; /* Color de fondo oscuro */
+        color: #ffffff; /* Texto claro para contraste */
+    }
+    /* Estilos para el texto de bienvenida */
+    .card-img-overlay h1, .card-img-overlay p {
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    }
+    /* Botones estilizados */
+    .btn-outline-light {
+        border-color: #ffffff;
+        color: #ffffff;
+    }
+    .btn-outline-light:hover {
+        background-color: #ffffff;
+        color: #000000;
+    }
+    /* Carrusel */
+    .carousel-item img {
+        filter: brightness(80%); /* Hacer que las imágenes sean un poco más oscuras */
+    }
+    .carousel-caption h5 {
+        color: #ffffff;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    }
+    /* Ajustes adicionales para asegurar contraste */
+    .navbar, .dropdown-menu {
+        background-color: #1c1c1c; /* Oscurece la barra de navegación y dropdown */
+    }
+    .dropdown-item {
+        color: #ffffff;
+    }
+    .dropdown-item:hover {
+        background-color: #343a40; /* Hover más claro para mejor visualización */
+    }
+</style>
+<!-- Banner con imagen de fondo y texto de bienvenida -->
+<div class="card text-bg-dark">
+    <img class="card-img" src="{% static 'img/banner.jpg' %}" alt="Noticias" style="object-fit: cover; height: 100vh;">
+    <div class="card-img-overlay d-flex flex-column justify-content-center align-items-center" style="background: rgba(0, 0, 0, 0.5);">
+        <h1 class="display-4 text-light text-center" style="font-weight: 700; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);">
+            ¡Informatics: la informacion en tus manos !
+        </h1>
+        <p class="lead text-light text-center" style="font-size: 1.5rem; max-width: 600px;">
+            Ecnuentra toda la infomación Económica y Financiera de la region y el mundo en un solo lugar.
+        </p>
+        <a href="{% url 'apps.noticias:listar_noticias' %}" class="btn btn-outline-light btn-lg mt-3">Explorar Noticias</a>
+   </div>
+</div>
 <section style="margin-top: 10%;">
     <div class="container">
         <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
@@ -31,24 +76,24 @@
 
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="{% static 'img/info1.jpg' %}" class="d-block w-100" alt="Descripción de la imagen 1">
+                    <img src="{% static 'img/info1.jpeg' %}" class="d-block w-100" alt="Descripción de la imagen 1">
                     <div class="carousel-caption d-none d-md-block">
-                        <h5>Título de la Imagen 1</h5>
-                        <p>Descripción breve sobre la imagen 1.</p>
+                        <h5>Inflacion en Baja</h5>
+                        <p>Puede el gobierno ganar esta batalla?.</p>
                     </div>
                 </div>
                 <div class="carousel-item">
                     <img src="{% static 'img/info2.jpg' %}" class="d-block w-100" alt="Descripción de la imagen 2">
                     <div class="carousel-caption d-none d-md-block">
-                        <h5>Título de la Imagen 2</h5>
-                        <p>Descripción breve sobre la imagen 2.</p>
+                        <h5>La Actividad Ecnonomica Argentina</h5>
+                        <p>Cuales son los indicadores mas importantes de la economia de Milei?</p>
                     </div>
                 </div>
                 <div class="carousel-item">
                     <img src="{% static 'img/info3.jpg' %}" class="d-block w-100" alt="Descripción de la imagen 3">
                     <div class="carousel-caption d-none d-md-block">
-                        <h5>Título de la Imagen 3</h5>
-                        <p>Descripción breve sobre la imagen 3.</p>
+                        <h5>El dolar y la Argentina</h5>
+                        <p>Cual es el futuro de la divisa mas apreciada por los argentinos?</p>
                     </div>
                 </div>         
             </div>
